@@ -6,6 +6,7 @@ import com.example.SmartContactManager.helper.Message;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private HttpSession httpSession;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 //    @GetMapping("/test")
 //    @ResponseBody
 //    public String test(){
@@ -70,6 +76,8 @@ public class HomeController {
             user.setRole("USER_ROLE");
             user.setEnabled(true);
 //        user.setImageUrl("");
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            System.out.println("Encrypted Password "+ user.getPassword());
             System.out.println("Agreement "+agreement);
             System.out.println("USER "+user);
             User user1 = userRepository.save(user);
