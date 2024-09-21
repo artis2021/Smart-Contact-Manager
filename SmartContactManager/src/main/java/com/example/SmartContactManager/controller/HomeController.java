@@ -4,9 +4,11 @@ import com.example.SmartContactManager.dao.UserRepository;
 import com.example.SmartContactManager.entities.User;
 import com.example.SmartContactManager.helper.Message;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -51,12 +53,20 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/do_register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("user") User user, @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model, HttpSession session){
+    public String register(@Valid @ModelAttribute("user") User user, @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model, BindingResult result1, HttpSession session){
         try{
             if(!agreement){
                 System.out.println("Please agree all the terms and conditions.");
                 throw new Exception("Please agree all the terms and conditions.");
             }
+
+            if(result1.hasErrors()){
+                System.out.println("ERROR "+result1.toString());
+                model.addAttribute("user", user);
+                return "signup";
+            }
+
+
             user.setRole("USER_ROLE");
             user.setEnabled(true);
 //        user.setImageUrl("");
