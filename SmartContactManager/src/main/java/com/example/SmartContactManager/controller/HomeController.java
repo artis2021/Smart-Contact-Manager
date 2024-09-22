@@ -91,8 +91,13 @@ public class HomeController {
             session.setAttribute("message", new Message("Something went wrong "+e.getMessage(), "alert-denger"));
             return "signup";
         }
+    }
 
-
+    //handler for custom login
+    @GetMapping("/signin")
+    public String loginPage(Model model){
+        model.addAttribute("title", "Login Page");
+        return "login";
     }
 
 

@@ -49,7 +49,7 @@ public class MyConfig {
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/**").permitAll()
                 )
-                .formLogin().and()
+                .formLogin().loginPage("/signin").and()
                 .csrf().disable();
 
         return http.build();
