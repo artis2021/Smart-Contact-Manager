@@ -84,13 +84,14 @@ public class HomeController {
             model.addAttribute("user", new User());
             session.setAttribute("message", new Message("Successfully register", "alert-success"));
             System.out.println("After saving in database "+user1);
-            return "signup";
+
         } catch (Exception e){
             e.printStackTrace();
             model.addAttribute("user", user);
             session.setAttribute("message", new Message("Something went wrong "+e.getMessage(), "alert-denger"));
-            return "signup";
+
         }
+        return "signup";
     }
 
     //handler for custom login

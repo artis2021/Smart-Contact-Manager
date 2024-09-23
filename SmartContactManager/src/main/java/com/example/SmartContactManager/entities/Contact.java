@@ -91,4 +91,19 @@ public class Contact {
     public void setDescription(String description) {
         this.description = description;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Contact{" +
+//                "cId=" + cId +
+//                ", name='" + name + '\'' +
+//                ", nickName='" + nickName + '\'' +
+//                ", desination='" + desination + '\'' +
+//                ", email='" + email + '\'' +
+//                ", phone='" + phone + '\'' +
+//                ", image='" + image + '\'' +
+//                ", description='" + description + '\'' +
+//                ", user=" + user +
+//                '}';
+//    }
 }
