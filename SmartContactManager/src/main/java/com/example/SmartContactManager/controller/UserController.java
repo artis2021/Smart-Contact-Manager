@@ -4,13 +4,17 @@ import com.example.SmartContactManager.dao.UserRepository;
 import com.example.SmartContactManager.entities.Contact;
 import com.example.SmartContactManager.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
 @Controller
@@ -48,15 +52,30 @@ public class UserController {
 
     //processing add contact form
     @PostMapping("/process-contact")
-    public String processContact(@ModelAttribute Contact contact, Principal principal){
-        String name = principal.getName();
-        User user = userRepository.getUserByUserName(name);
-        contact.setUser(user);
-        user.getContacts().add(contact);
-        userRepository.save(user);
+    public String processContact(@ModelAttribute Contact contact, @RequestParam("image") MultipartFile multipartFile, Principal principal){
+        try{
+            String name = principal.getName();
+            User user = userRepository.getUserByUserName(name);
+            if(multipartFile.isEmpty()){
+                System.out.println("File is empty.");
+            } else {
+                contact.setImage(multipartFile.getOriginalFilename());
+                File file = new ClassPathResource("static/img").getFile();
+                Path path = Paths.get(file.getAbsolutePath()+File.separator+multipartFile.getOriginalFilename());
+                Files.copy(multipartFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image is uploaded in static/img folder.");
+            }
+            contact.setUser(user);
+            user.getContacts().add(contact);
+            userRepository.save(user);
 
-        System.out.println("DATA: "+ contact);
-        System.out.println("Added to database.");
+            System.out.println("DATA: "+ contact);
+            System.out.println("Added to database.");
+        } catch (Exception e){
+            System.out.println("ERROR: "+ e.getMessage());
+            e.printStackTrace();
+        }
+
         return "normal/add_contact_form";
     }
 }
