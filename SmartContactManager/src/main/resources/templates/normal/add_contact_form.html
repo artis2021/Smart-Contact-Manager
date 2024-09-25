@@ -25,7 +25,7 @@
 
                                </div>
 
-                               <input id="firstName" class="name" type="text" placeholder="Enter your name" class="form-control">
+                               <input id="firstName" required="required" class="name" type="text" placeholder="Enter your name" class="form-control">
 
                            </div>
 
@@ -39,7 +39,7 @@
 
                             </div>
 
-                            <input id="nickName" class="nickName" type="text" placeholder="Enter your nickname" class="form-control">
+                            <input id="nickName" required="required" class="nickName" type="text" placeholder="Enter your nickname" class="form-control">
 
                         </div>
 
@@ -53,7 +53,7 @@
 
                                </div>
 
-                               <input id="phone" class="phone" type="text" placeholder="Enter your phone number" class="form-control">
+                               <input id="phone" required="required" class="phone" type="text" placeholder="Enter your phone number" class="form-control">
 
                            </div>
 <!--                           email-->
@@ -66,7 +66,7 @@
 
                                </div>
 
-                               <input id="email" class="email" type="email" placeholder="Enter your email" class="form-control">
+                               <input id="email" required="required" class="email" type="email" placeholder="Enter your email" class="form-control">
 
                            </div>
 
@@ -80,13 +80,13 @@
 
                                </div>
 
-                               <input id="desination" class="desination" type="text" placeholder="Enter your desination" class="form-control">
+                               <input id="desination" required="required" class="desination" type="text" placeholder="Enter your desination" class="form-control">
 
                            </div>
 
 <!--                            description-->
                            <div class="form-group mt-3">
-                               <textarea placeholder="Enter contact description" name="description" id="description" class="form-control" rows="10" >
+                               <textarea id="mytextarea" placeholder="Enter contact description" name="description" class="form-control" rows="10" >
 
                                </textarea>
 
@@ -95,7 +95,7 @@
 <!--                           image-->
 
                            <div class="custom-file">
-                               <input type="file" name="image" id="image">
+                               <input  type="file" name="image" id="image">
 
                            </div>
                            <div class="container text-center">
@@ -114,7 +114,13 @@
        </div>
 
    </div>
-</section>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+        < /section>
 
 </body>
 </html>
