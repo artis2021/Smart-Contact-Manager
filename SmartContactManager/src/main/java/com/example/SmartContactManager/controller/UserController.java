@@ -68,6 +68,7 @@ public class UserController {
             User user = userRepository.getUserByUserName(name);
             if(multipartFile.isEmpty()){
                 System.out.println("File is empty.");
+                contact.setImage("contact.png");
             } else {
                 contact.setImage(multipartFile.getOriginalFilename());
                 File file = new ClassPathResource("static/img").getFile();
