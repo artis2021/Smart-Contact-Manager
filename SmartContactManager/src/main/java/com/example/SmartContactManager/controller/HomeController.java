@@ -55,7 +55,9 @@ public class HomeController {
     public String signup(Model model){
         model.addAttribute("title", "RegisterPage");
         model.addAttribute("user", new User());
+        System.out.println("User :"+ model.getAttribute("user"));
         return "signup";
+
     }
 
     @RequestMapping(value = "/do_register", method = RequestMethod.POST)
